@@ -41,23 +41,23 @@ def get_single_data(url):
 def get_page_data(url):
     soup = request_url(url);
     # 获取页面上所有的新闻连接
-    new_line = soup.find(name="div", attrs={"class": "contMain fontSt"}).find(name="ul").find_all(name="li");
+    news_line_list = soup.find(name="div", attrs={"class": "contMain fontSt"}).find(name="ul").find_all(name="li");
     page_data = list();
-    for i in range(0, len(new_line)):
+    for news_line in news_line_list:
         # 获取满足条件的每一页新闻标题
-        title = new_line[i].find(name="a").get_text();
+        title = news_line.find(name="a").get_text();
         title_need = title.startswith("四川省新型冠状病毒肺炎疫情最新情况") & title.endswith("发布）");
         if title_need:
             # 获取每个新闻时间
-            news_data_time = re.compile(r"\d+").findall(str(title));
-            # news_data_time =
+            news_data_time = news_line.findChildren(name="span", recursive=False)[0].get_text();
             # 获取每个新闻的url
-            single_news_url = new_line[i].find(name="a")["href"];
+            single_news_url = news_line.find(name="a")["href"];
             really_news_url = "http://wsjkw.sc.gov.cn/" + single_news_url;
             # 获取每个新闻的数据
             news_data_people = get_single_data(really_news_url);
             # 将新闻的时间和数据放在一个集合中
-            page_data.append(news_data_time + news_data_people);
+            news_data_people.insert(0, news_data_time);
+            page_data.append(news_data_people);
         else:
             continue;
     return page_data;

@@ -30,7 +30,7 @@ def insert_news(all_page_data):
                          % (single_data[0], single_data[1], single_data[2], single_data[3],
                             single_data[4], single_data[5], single_data[6], single_data[7]);
             # 查询数据，判断是否需要插入
-            query_result = query_news(single_data[0]);
+            query_result = query_news(single_data[1]);
             if len(query_result) == 0:
                 insert_status += mysql_util.execute_sql(insert_sql);
                 if insert_status > 0:
@@ -90,10 +90,10 @@ def get_storage_data():
 
 if __name__ == "__main__":
     # 插入数据
-    # all_page_data = resolve_data();
+    all_page_data = resolve_data();
     # insert_result = insert_news(all_page_data);
     # print("已添加：" + str(insert_result));
-
+    # resolve_data();
     # 按日期查询
     # news_time = "8月30日";
     # query_result = query_news(news_time);
@@ -102,4 +102,4 @@ if __name__ == "__main__":
     # 删除所有信息
     # delete_result = delete_news();
     # print("已删除：" + str(delete_result));
-    pass;
+    # pass;

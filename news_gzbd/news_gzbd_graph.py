@@ -80,5 +80,5 @@ if __name__ == "__main__":
     # graph_typle1 = "饼图";
     # graph_typle2 = "折线图";
     # graph_typle3 = "柱状图";
-    # draw_graph(graph_typle3);
+    # draw_graph(graph_typle1);
     pass;
